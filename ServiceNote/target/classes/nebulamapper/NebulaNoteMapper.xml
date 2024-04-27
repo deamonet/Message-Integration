@@ -1,0 +1,20 @@
+<mapper namespace="me.deamonet.mi.nebulamapper.NebulaNoteMapper">
+
+    <select id="selectNoteByUser" resultType="me.deamonet.mi.entity.Note">
+        MATCH (v:note{uid: $uid}) RETURN v;
+    </select>
+
+    <select id="selectLinkedNoteByUser" resultType="me.deamonet.mi.entity.Note">
+        MATCH (n:note{uid: $uid}) - [e] - (n2:note{uid: $uid})
+        RETURN n, e, n2
+        LIMIT 100
+    </select>
+
+    <select id="selectNoteByNote" resultType="me.deamonet.mi.entity.Note">
+        MATCH (n:note) -- (n2:note)
+        WHERE n.note.nid == $nid
+        RETURN n2
+        LIMIT 100
+    </select>
+
+</mapper>

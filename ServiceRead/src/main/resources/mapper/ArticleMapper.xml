@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="me.deamonet.mi.mapper.ArticleMapper">
+
+    <select id="selectArticleById" resultType="Article">
+        select * from article where aid=#{aid}
+    </select>
+
+
+    <select id="selectArticleByIds" parameterType="list" resultType="Article">
+        SELECT * FROM article WHERE article.aid IN
+        <foreach collection="list" index="index" item="aid" open="(" close=")" separator="or">
+            #{aid}
+        </foreach>
+    </select>
+
+    <insert id="insertArticle" parameterType="article">
+        insert into article
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="title!=null"> title, </if>
+            <if test="uid!=null">uid, </if>
+            <if test="content!=null">content, </if>
+            <if test="cover!=null">cover, </if>
+            <if test="category!=null">category, </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="title!=null">#{article.title}, </if>
+            <if test="uid!=null">#{article.uid}, </if>
+            <if test="content!=null">#{article.content}, </if>
+            <if test="cover!=null">#{article.cover}, </if>
+            <if test="category!=null">#{article.category}, </if>
+        </trim>
+    </insert>
+
+    <update id="updateArticle" parameterType="article">
+        UPDATE article
+        <set>
+            <if test="title!=null">#{article.title}, </if>
+            <if test="uid!=null">#{article.uid}, </if>
+            <if test="content!=null">#{article.content}, </if>
+            <if test="cover!=null">#{article.cover}, </if>
+            <if test="category!=null">#{article.category}</if>
+        </set>
+        WHERE aid=#{article.aid}
+    </update>
+
+    <delete id="deleteArticleById" parameterType="Integer">
+        delete from article where aid=#{aid}
+    </delete>
+</mapper>

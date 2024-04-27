@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="me.deamonet.mi.mariamapper.MariaNoteMapper">
+
+    <select id="selectNoteById" resultType="NoteMaria">
+        select * from note where id=#{nid}
+    </select>
+
+
+    <select id="selectNoteByIds" parameterType="list" resultType="noteMaria">
+        SELECT * FROM note WHERE note.id IN
+        <foreach collection="list" index="index" item="nid" open="(" close=")" separator="or">
+            #{nid}
+        </foreach>
+    </select>
+
+    <insert id="insertNote" parameterType="note">
+        insert into note
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="title!=null"> title, </if>
+            <if test="uid!=null">uid, </if>
+            <if test="content!=null">content, </if>
+            <if test="cover!=null">cover, </if>
+            <if test="category!=null">category, </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="title!=null">#{note.title}, </if>
+            <if test="uid!=null">#{note.uid}, </if>
+            <if test="content!=null">#{note.content}, </if>
+            <if test="cover!=null">#{note.cover}, </if>
+            <if test="category!=null">#{note.category}, </if>
+        </trim>
+    </insert>
+
+    <update id="updateNote" parameterType="note">
+        UPDATE note
+        <set>
+            <if test="title!=null">#{note.title}, </if>
+            <if test="uid!=null">#{note.uid}, </if>
+            <if test="content!=null">#{note.content}, </if>
+            <if test="cover!=null">#{note.cover}, </if>
+            <if test="category!=null">#{note.category}</if>
+        </set>
+        WHERE id=#{note.nid}
+    </update>
+
+    <delete id="deleteNoteById" parameterType="Integer">
+        delete from note where id=#{nid}
+    </delete>
+</mapper>

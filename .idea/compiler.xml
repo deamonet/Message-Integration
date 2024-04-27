@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="ScraperJandan" />
+        <module name="RSSInterpreter" />
+        <module name="ServiceNote" />
+        <module name="ApiBilibiliDynamicVideo" />
+        <module name="SeleniumZhihuMainPage" />
+        <module name="ServiceUser" />
+        <module name="ServiceRead" />
+        <module name="ServiceInstantMessage" />
+        <module name="ServiceAuthentication" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="Constant" target="17" />
+      <module name="MessageIntegration" target="17" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
